@@ -3,7 +3,7 @@
 require_once 'Database.php';
 require_once 'Department.php';
 require_once 'Logger.php';
-require_once '../interfaces/Employee.php';
+require_once '../../interfaces/IEmployee.php';
 
 Class Employee extends Database implements IEmployee
 {
