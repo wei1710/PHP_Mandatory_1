@@ -5,9 +5,7 @@
  * @param $info An undefined series of strings or arrays to log
  */
 
-require_once INTERFACES_PATH . '/ILogger.php';
-
-Class Logger implements ILogger
+Class Logger
 {
     private const LOG_DIRECTORY = __DIR__ . '/../log'; 
     

@@ -2,7 +2,7 @@
 
 require_once '../../initialise.php';
 
-require_once DB_ENTITIES_PATH . '/EmployeeDB.php';
+require_once ROOT_PATH . '/classes/EmployeeDB.php';
 
 $searchText = trim($_GET['search'] ?? '');
 
@@ -17,8 +17,8 @@ if (!$employees) {
 }
 
 $pageTitle = 'Employees';
-include_once PUBLIC_PATH . '/header.php';
-include_once PUBLIC_PATH . '/nav.php';
+include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 ?>
     <nav>
         <ul>
@@ -52,4 +52,4 @@ include_once PUBLIC_PATH . '/nav.php';
             </section>
         <?php endif; ?>
     </main>
-<?php include_once PUBLIC_PATH . '/footer.php'; ?>
+<?php include_once ROOT_PATH . '/public/footer.php'; ?>

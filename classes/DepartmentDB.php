@@ -1,9 +1,9 @@
 <?php
 
-require_once DB_PATH . '/Database.php';
-require_once CLASSES_PATH . '/Logger.php';
-require_once INTERFACE_DB_ENTITIES_PATH . '/IDepartmentDB.php';
-require_once ENTITIES_PATH . '/Department.php';
+require_once 'Database.php';
+require_once 'Logger.php';
+require_once '../interfaces/IDepartmentDB.php';
+require_once 'Department.php';
 
 Class DepartmentDB extends Database implements IDepartmentDB
 {

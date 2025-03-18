@@ -1,9 +1,9 @@
 <?php
 
-require_once DB_PATH . '/Database.php';
-require_once CLASSES_PATH . '/Logger.php';
-require_once INTERFACE_DB_ENTITIES_PATH . '/IEmployeeDB.php';
-require_once ENTITIES_PATH . '/Employee.php';
+require_once 'Database.php';
+require_once 'Logger.php';
+require_once __DIR__ . '/../interfaces/IEmployeeDB.php';
+require_once 'Employee.php';
 
 Class EmployeeDB extends Database implements IEmployeeDB
 {

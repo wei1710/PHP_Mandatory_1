@@ -1,9 +1,9 @@
 <?php
 
-require_once DB_PATH . '/Database.php';
-require_once CLASSES_PATH . '/Logger.php';
-require_once INTERFACE_DB_ENTITIES_PATH . '/IProject.php';
-require_once ENTITIES_PATH . '/Project.php';
+require_once 'Database.php';
+require_once 'Logger.php';
+require_once '../interfaces/IProjectDB.php';
+require_once 'Project.php';
 
 Class ProjectDB extends Database implements IProjectDB
 {
