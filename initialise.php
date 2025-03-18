@@ -13,7 +13,7 @@
 
 // In case it is a Windows OS, the backslash must be replaced by a slash.
 // Specifying the backslash twice is necessary, as the backslash is the escape character
-define('ROOT_PATH', str_replace('\\', '/', __DIR__));
+define('ROOT_PATH', dirname(__DIR__));
 
 // Web server's document root ("C:\xampp\htdocs", "var/www/html" or similar)
 $documentRoot = str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']));
@@ -21,6 +21,20 @@ $documentRoot = str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']));
 // The base URL is the present script path minus the document root
 $baseUrl = str_replace($documentRoot, '', ROOT_PATH);
 
+define('URL_PATH', ltrim($baseUrl, '/'));
+
 // As it is an absolute path, it must start with a slash.
 // If it already starts with a slash, ltrim removes it before it gets added again
 define('BASE_URL', '/' . ltrim($baseUrl, '/'));
+
+// Server directory paths
+define('SERVER_PATH', ROOT_PATH . '/Server');
+define('CLIENT_PATH', ROOT_PATH . '/Client');
+define('CLASSES_PATH', SERVER_PATH . '/classes');
+define('INTERFACES_PATH', SERVER_PATH . '/interfaces');
+define('DB_PATH', CLASSES_PATH . '/DB');
+define('DB_ENTITIES_PATH', CLASSES_PATH . '/DBEntities');
+define('INTERFACE_DB_ENTITIES_PATH', INTERFACES_PATH . '/DBEntities');
+define('ENTITIES_PATH', CLASSES_PATH . '/Entities');
+define('PUBLIC_PATH', CLIENT_PATH . '/public');
+define('VIEWS_PATH', CLIENT_PATH . '/views');

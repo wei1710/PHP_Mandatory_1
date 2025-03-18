@@ -2,23 +2,23 @@
 
 require_once '../../initialise.php';
 
-require_once ROOT_PATH . '/classes/Employee.php';
+require_once DB_ENTITIES_PATH . '/EmployeeDB.php';
 
 $searchText = trim($_GET['search'] ?? '');
 
-$employee = new Employee();
+$employeeDB = new EmployeeDB();
 if ($searchText === '') {
-    $employees = $employee->getAll();
+    $employees = $employeeDB->getAll();
 } else {
-    $employees = $employee->search($searchText);
+    $employees = $employeeDB->search($searchText);
 }
 if (!$employees) {
     $errorMessage = 'There was an error while retrieving the list of employees.';
 }
 
 $pageTitle = 'Employees';
-include_once ROOT_PATH . '/public/header.php';
-include_once ROOT_PATH . '/public/nav.php';
+include_once PUBLIC_PATH . '/header.php';
+include_once PUBLIC_PATH . '/nav.php';
 ?>
     <nav>
         <ul>
@@ -43,13 +43,13 @@ include_once ROOT_PATH . '/public/nav.php';
             <section>
                 <?php foreach ($employees as $employee): ?>
                     <article>
-                        <p><strong>First name: </strong><?=$employee['cFirstName'] ?></p>
-                        <p><strong>Last name: </strong><?=$employee['cLastName'] ?></p>
-                        <p><strong>Birth date: </strong><?=$employee['dBirth'] ?></p>
-                        <p><a href="view.php?id=<?=$employee['nEmployeeID'] ?>">View details</a></p>
+                        <p><strong>First name: </strong><?= $employee->getFirstName() ?></p>
+                        <p><strong>Last name: </strong><?= $employee->getLastName() ?></p>
+                        <p><strong>Birth date: </strong><?= $employee->getBirthDate()->format('Y-m-d') ?></p>
+                        <p><a href="view.php?id=<?= $employee->getId() ?>">View details</a></p>
                     </article>
                 <?php endforeach; ?>
             </section>
         <?php endif; ?>
     </main>
-<?php include_once ROOT_PATH . '/public/footer.php'; ?>
+<?php include_once PUBLIC_PATH . '/footer.php'; ?>

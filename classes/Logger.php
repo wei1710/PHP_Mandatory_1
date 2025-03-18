@@ -3,11 +3,11 @@
 /**
  * Logs the information it receives as a parameter to a log file in the log folder.
  * @param $info An undefined series of strings or arrays to log
- * @author  Arturo Mora-Rioja
- * @version 1.0.0, December 2022
  */
 
-Class Logger
+require_once INTERFACES_PATH . '/ILogger.php';
+
+Class Logger implements ILogger
 {
     private const LOG_DIRECTORY = __DIR__ . '/../log'; 
     
