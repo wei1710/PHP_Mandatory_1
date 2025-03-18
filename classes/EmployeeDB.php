@@ -94,10 +94,10 @@ Class EmployeeDB extends Database implements IEmployeeDB
      * @return <array> An associative array of Employee objects,
      *         or false if there was an error
      */
-    function getByID(int $employeeID): array|false
+    function getByID(int $employeeID): Employee|false
     {
         $sql =<<<SQL
-            SELECT 
+            SELECT
                 e.cFirstName AS first_name, 
                 e.cLastName AS last_name, 
                 e.cEmail AS email, 
@@ -129,7 +129,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
                     birthDate: $birthDate,
                     departmentId: $row['department_id']
                 );
-                return [$employee];
+                return $employee;
             }
             return false;
         } catch (PDOException $e) {

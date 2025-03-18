@@ -15,7 +15,7 @@ Class Employee
       string $lastName,
       string $email,
       DateTime $birthDate,
-      ?int $departmentId
+      ?int $departmentId,
     ) {
       $this->id = $id;
       $this->firstName = $firstName;
