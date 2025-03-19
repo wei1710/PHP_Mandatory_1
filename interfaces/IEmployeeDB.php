@@ -1,9 +1,9 @@
 <?php
 
 Interface IEmployeeDB {
-  function getAll(): array|false;
-  function search(string $searchText): array|false;
-  function getByID(int $employeeID): Employee|false;
-  function validate(array $employee): array;
-  function insert(array $employee): bool;
+  public function getAll(): array|false;
+  public function search(string $searchText): array|false;
+  public function getByID(int $employeeID): Employee|false;
+  public function validate(array $employee): array;
+  public function insert(array $employee): bool;
 }

@@ -79,8 +79,14 @@ Class DepartmentDB extends Database implements IDepartmentDB
     function getByID(int $departmentID): Department|false
     {
         $sql =<<<SQL
-            SELECT d.nDepartmentID, d.cName,
-                   e.nEmployeeID, e.cFirstName, e.cLastName
+            SELECT 
+                d.nDepartmentID, 
+                d.cName,
+                e.nEmployeeID, 
+                e.cFirstName, 
+                e.cLastName,
+                e.cEmail,
+                e.dBirth
             FROM department d
             LEFT JOIN employee e ON d.nDepartmentID = e.nDepartmentID
             WHERE d.nDepartmentID = :departmentID
@@ -92,14 +98,78 @@ Class DepartmentDB extends Database implements IDepartmentDB
             $stmt->bindValue(':departmentID', $departmentID);
             $stmt->execute();
 
-            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return new Department(id: $row['nDepartmentID'], name: $row['cName']);
+            $employees = [];
+            $departmentName = null;
+            $departmentId = null;
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $departmentName = $row['cName'];
+                $departmentId = $row['nDepartmentID'];
+
+                if ($row['nEmployeeID'] !== null) {
+                    $birthDate = DateTime::createFromFormat('Y-m-d', $row['dBirth']);
+                    $employees[] = new Employee(
+                        id: $row['nEmployeeID'],
+                        firstName: $row['cFirstName'],
+                        lastName: $row['cLastName'],
+                        email: $row['cEmail'],
+                        birthDate: $birthDate,
+                        departmentId: $departmentId
+                    );
+                }
             }
-            return false;
+
+            if ($departmentName === null) {
+                return false;
+            }
+
+            $department = new Department(id: $departmentId, name: $departmentName);
+            $department->setEmployees($employees);
+
+            
+            return $department;
         } catch (PDOException $e) {
             $this->pdo->rollBack();
             Logger::logText('Error getting all departments: ', $e);
             return false;
+        }
+    }
+
+    public function getUnassignedEmployees(): array
+    {
+        $sql =<<<SQL
+            SELECT
+                nEmployeeID AS id,
+                cFirstName AS firstName,
+                cLastName AS lastName,
+                cEmail AS email,
+                dBirth AS birthDate
+            FROM employee
+            WHERE nDepartmentID IS NULL
+            ORDER BY cLastName, cFirstName;
+        SQL;
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+
+            $unassignedEmployees = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $birthDate = DateTime::createFromFormat('Y-m-d', $row['birthDate']);
+                $unassignedEmployees[] = new Employee(
+                    id: $row['id'],
+                    firstName: $row['firstName'],
+                    lastName: $row['lastName'],
+                    email: $row['email'],
+                    birthDate: $birthDate,
+                    departmentId: null
+                );
+            }
+
+            return $unassignedEmployees;
+        } catch (PDOException $e) {
+            Logger::logText('Error getting unassigned employees: ', $e);
+            return [];
         }
     }
 
