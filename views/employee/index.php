@@ -4,7 +4,7 @@ require_once '../../initialise.php';
 
 require_once ROOT_PATH . '/classes/EmployeeDB.php';
 
-$searchText = trim(string: $_GET['search'] ?? '');
+$searchText = trim($_GET['search'] ?? '');
 
 $employeeDB = new EmployeeDB();
 if ($searchText === '') {
@@ -21,9 +21,8 @@ include_once ROOT_PATH . '/public/header.php';
 include_once ROOT_PATH . '/public/nav.php';
 ?>
     <nav>
-        <ul>
-            <li><a href="new.php" title="Create new employee">Add employee</a></li>
-        </ul>
+        <a href="new.php" title="Create new employee">Add employee</a>
+        <br><br>
     </nav>
     <main>
         <?php if (isset($errorMessage)): ?>
@@ -43,10 +42,10 @@ include_once ROOT_PATH . '/public/nav.php';
             <section>
                 <?php foreach ($employees as $employee): ?>
                     <article>
-                        <p><strong>First name: </strong><?= htmlspecialchars(string: $employee->getFirstName()) ?></p>
-                        <p><strong>Last name: </strong><?= htmlspecialchars(string: $employee->getLastName()) ?></p>
-                        <p><strong>Birth date: </strong><?= htmlspecialchars(string: $employee->getBirthDate()->format('Y-m-d')) ?></p>
-                        <p><a href="view.php?id=<?= htmlspecialchars(string: $employee->getId()) ?>">View details</a></p>
+                        <p><strong>First name: </strong><?= htmlspecialchars($employee->getFirstName()) ?></p>
+                        <p><strong>Last name: </strong><?= htmlspecialchars($employee->getLastName()) ?></p>
+                        <p><strong>Birth date: </strong><?= htmlspecialchars($employee->getBirthDate()->format('Y-m-d')) ?></p>
+                        <p><a href="view.php?id=<?= htmlspecialchars($employee->getId()) ?>">View details</a></p>
                     </article>
                 <?php endforeach; ?>
             </section>
