@@ -20,10 +20,7 @@ if (!$employee) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['confirm'])) {
-        if ($_POST['confirm'] === 'yes') {
-            require_once ROOT_PATH . '/classes/EmployeeDB.php';
-            $employeeDB = new EmployeeDB();
-            
+        if ($_POST['confirm'] === 'yes') {            
             if ($employeeDB->delete($employeeID)) {
                 header('Location: index.php');
                 exit;
@@ -39,11 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Delete Employee';
 include_once ROOT_PATH . '/public/header.php';
+
 ?>
+
+<nav>
+    <a href="index.php" title="Back to Employees">Back</a>
+    <br><br>
+</nav>
 
 <main>
     <?php if (isset($errorMessage)): ?>
-        <p class="error"><?= $errorMessage ?></p>
+        <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
     <?php endif; ?>
 
     <p><strong>First Name:</strong> <?= htmlspecialchars($employee->getFirstName()) ?></p>

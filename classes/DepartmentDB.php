@@ -77,7 +77,7 @@ Class DepartmentDB extends Database implements IDepartmentDB
      * @return <array> An associative array of Department objects,
      *         or false if there was an error
      */
-    function getByID(int $departmentID): Department|false
+    function getById(int $departmentID): Department|false
     {
         $sql =<<<SQL
             SELECT 
@@ -133,44 +133,6 @@ Class DepartmentDB extends Database implements IDepartmentDB
             $this->pdo->rollBack();
             Logger::logText('Error getting all departments: ', $e);
             return false;
-        }
-    }
-
-    public function getUnassignedEmployees(): array
-    {
-        $sql =<<<SQL
-            SELECT
-                nEmployeeID AS id,
-                cFirstName AS firstName,
-                cLastName AS lastName,
-                cEmail AS email,
-                dBirth AS birthDate
-            FROM employee
-            WHERE nDepartmentID IS NULL
-            ORDER BY cLastName, cFirstName;
-        SQL;
-
-        try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
-
-            $unassignedEmployees = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $birthDate = DateTime::createFromFormat('Y-m-d', $row['birthDate']);
-                $unassignedEmployees[] = new Employee(
-                    id: $row['id'],
-                    firstName: $row['firstName'],
-                    lastName: $row['lastName'],
-                    email: $row['email'],
-                    birthDate: $birthDate,
-                    departmentId: null
-                );
-            }
-
-            return $unassignedEmployees;
-        } catch (PDOException $e) {
-            Logger::logText('Error getting unassigned employees: ', $e);
-            return [];
         }
     }
 
