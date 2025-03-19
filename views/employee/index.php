@@ -23,7 +23,7 @@ include_once ROOT_PATH . '/public/nav.php';
 
 ?>
     <nav>
-        <a href="new.php" title="Create new employee">Add employee</a>
+        <a href="new.php" title="Create employee">Add employee</a>
         <br><br>
     </nav>
     <main>

@@ -24,7 +24,7 @@ include_once ROOT_PATH . '/public/nav.php';
 ?>
 
 <nav>
-    <a href="new.php" class="button" title="Add New Department">Add department</a>
+    <a href="new.php" class="button" title="Add Department">Add department</a>
     <br><br>
 </nav>
 
