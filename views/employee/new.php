@@ -49,6 +49,7 @@ include_once ROOT_PATH . '/public/header.php';
 
 <nav>
     <a href="index.php" title="Back to Home">Back</a>
+    <br><br>
 </nav>
 
 <main>

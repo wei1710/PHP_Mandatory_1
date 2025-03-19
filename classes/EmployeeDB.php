@@ -207,12 +207,11 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt->bindValue(':lastName', $employee['last_name']);
             $stmt->bindValue(':email', $employee['email']);
             $stmt->bindValue(':birthDate', $employee['birth_date']);
-            $stmt->bindValue(':departmentID', $employee['department']);
+            $stmt->bindValue(':departmentID', $employee['department_id']);
             $stmt->execute();
             
             return $stmt->rowCount() === 1;
         } catch (PDOException $e) {
-            $this->pdo->rollBack();
             Logger::logText('Error inserting a new employee: ', $e);
             return false;
         }
