@@ -22,10 +22,6 @@ include_once ROOT_PATH . '/public/header.php';
 include_once ROOT_PATH . '/public/nav.php';
 
 ?>
-    <nav>
-        <a href="new.php" title="Create employee">Add employee</a>
-        <br><br>
-    </nav>
     <main>
         <?php if (isset($errorMessage)): ?>
             <section>
@@ -41,6 +37,14 @@ include_once ROOT_PATH . '/public/nav.php';
                     <button type="submit">Search</button>
                 </div>
             </form>
+            
+            <br>
+
+            <nav>
+                <form action="new.php" method="get">
+                    <button type="submit">Add employee</button>
+                </form>
+            </nav>
 
             <table>
                 <thead>
