@@ -4,6 +4,7 @@ require_once 'Database.php';
 require_once 'Logger.php';
 require_once ROOT_PATH . '/interfaces/IDepartmentDB.php';
 require_once 'Department.php';
+require_once 'Employee.php';
 
 Class DepartmentDB extends Database implements IDepartmentDB
 {
