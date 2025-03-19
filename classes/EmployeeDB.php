@@ -98,6 +98,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
     {
         $sql =<<<SQL
             SELECT
+                e.nEmployeeID AS employee_id,
                 e.cFirstName AS first_name, 
                 e.cLastName AS last_name, 
                 e.cEmail AS email, 
@@ -122,12 +123,13 @@ Class EmployeeDB extends Database implements IEmployeeDB
             if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $birthDate = DateTime::createFromFormat(format: 'Y-m-d', datetime: $row['birth_date']);
                 $employee = new Employee(
-                    id: $row['nEmployeeID'],
+                    id: $row['employee_id'],
                     firstName: $row['first_name'],
                     lastName: $row['last_name'],
                     email: $row['email'],
                     birthDate: $birthDate,
-                    departmentId: $row['department_id']
+                    departmentId: $row['department_id'],
+                    departmentName: $row['department_name']
                 );
                 return $employee;
             }
@@ -150,7 +152,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
         $lastName = trim($employee['last_name'] ?? '');
         $email = trim($employee['email'] ?? '');
         $birthDate = trim($employee['birth_date'] ?? '');
-        $departmentID = (int) ($employee['department'] ?? 0);
+        $departmentID = (int) ($employee['department_id'] ?? 0);
         
         $validationErrors = [];
         

@@ -4,7 +4,7 @@ require_once '../../initialise.php';
 
 require_once ROOT_PATH . '/classes/EmployeeDB.php';
 
-$searchText = trim($_GET['search'] ?? '');
+$searchText = trim(string: $_GET['search'] ?? '');
 
 $employeeDB = new EmployeeDB();
 if ($searchText === '') {
@@ -43,10 +43,10 @@ include_once ROOT_PATH . '/public/nav.php';
             <section>
                 <?php foreach ($employees as $employee): ?>
                     <article>
-                        <p><strong>First name: </strong><?= $employee->getFirstName() ?></p>
-                        <p><strong>Last name: </strong><?= $employee->getLastName() ?></p>
-                        <p><strong>Birth date: </strong><?= $employee->getBirthDate()->format('Y-m-d') ?></p>
-                        <p><a href="view.php?id=<?= $employee->getId() ?>">View details</a></p>
+                        <p><strong>First name: </strong><?= htmlspecialchars(string: $employee->getFirstName()) ?></p>
+                        <p><strong>Last name: </strong><?= htmlspecialchars(string: $employee->getLastName()) ?></p>
+                        <p><strong>Birth date: </strong><?= htmlspecialchars(string: $employee->getBirthDate()->format('Y-m-d')) ?></p>
+                        <p><a href="view.php?id=<?= htmlspecialchars(string: $employee->getId()) ?>">View details</a></p>
                     </article>
                 <?php endforeach; ?>
             </section>

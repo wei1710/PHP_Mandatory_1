@@ -8,6 +8,7 @@ Class Employee
     private string $email;
     private DateTime $birthDate;
     private ?int $departmentId;
+    private ?string $departmentName;
 
     public function __construct(
       int $id,
@@ -16,6 +17,7 @@ Class Employee
       string $email,
       DateTime $birthDate,
       ?int $departmentId,
+      ?string $departmentName = null,
     ) {
       $this->id = $id;
       $this->firstName = $firstName;
@@ -23,6 +25,7 @@ Class Employee
       $this->email = $email;
       $this->birthDate = $birthDate;
       $this->departmentId = $departmentId;
+      $this->departmentName = $departmentName;
     }
 
     public function setId(int $id): void {
@@ -49,6 +52,10 @@ Class Employee
       $this->departmentId = $departmentId;
     }
 
+    public function setDepartmentName(?string $departmentName): void {
+      $this->departmentName = $departmentName;
+    }
+
     public function getId(): int {
       return $this->id;
     }
@@ -71,5 +78,9 @@ Class Employee
 
     public function getDepartmentId(): ?int {
       return $this->departmentId;
+    }
+
+    public function getDepartmentName(): ?string {
+      return $this->departmentName;
     }
 }
