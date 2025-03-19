@@ -7,6 +7,7 @@ require_once ROOT_PATH . '/classes/EmployeeDB.php';
 $searchText = trim($_GET['search'] ?? '');
 
 $employeeDB = new EmployeeDB();
+
 if ($searchText === '') {
     $employees = $employeeDB->getAll();
 } else {
@@ -19,6 +20,7 @@ if (!$employees) {
 $pageTitle = 'Employees';
 include_once ROOT_PATH . '/public/header.php';
 include_once ROOT_PATH . '/public/nav.php';
+
 ?>
     <nav>
         <a href="new.php" title="Create new employee">Add employee</a>
@@ -27,7 +29,7 @@ include_once ROOT_PATH . '/public/nav.php';
     <main>
         <?php if (isset($errorMessage)): ?>
             <section>
-                <p class="error"><?=$errorMessage ?></p>
+                <p class="error"><?= $errorMessage ?></p>
             </section>
         <?php else: ?>
             <form action="index.php" method="GET">
@@ -39,16 +41,31 @@ include_once ROOT_PATH . '/public/nav.php';
                     <button type="submit">Search</button>
                 </div>
             </form>
-            <section>
-                <?php foreach ($employees as $employee): ?>
-                    <article>
-                        <p><strong>First name: </strong><?= htmlspecialchars($employee->getFirstName()) ?></p>
-                        <p><strong>Last name: </strong><?= htmlspecialchars($employee->getLastName()) ?></p>
-                        <p><strong>Birth date: </strong><?= htmlspecialchars($employee->getBirthDate()->format('Y-m-d')) ?></p>
-                        <p><a href="view.php?id=<?= htmlspecialchars($employee->getId()) ?>">View details</a></p>
-                    </article>
-                <?php endforeach; ?>
-            </section>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Birth Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($employees as $employee): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($employee->getFirstName()) ?></td>
+                            <td><?= htmlspecialchars($employee->getLastName()) ?></td>
+                            <td><?= htmlspecialchars($employee->getBirthDate()->format('Y-m-d')) ?></td>
+                            <td>
+                                <a href="view.php?id=<?= htmlspecialchars($employee->getId()) ?>">View</a>
+                                <a href="edit.php?id=<?= htmlspecialchars($employee->getId()) ?>" class="button">Edit</a>
+                                <a href="delete.php?id=<?= htmlspecialchars($employee->getId()) ?>" class="button">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         <?php endif; ?>
     </main>
 <?php include_once ROOT_PATH . '/public/footer.php'; ?>

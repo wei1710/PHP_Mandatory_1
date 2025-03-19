@@ -1,24 +1,30 @@
 <?php
-session_start();
 
 require_once '../../initialise.php';
 
-if (!isset($_SESSION['employee'])) {
+$employeeID = (int) ($_GET['id'] ?? 0);
+
+if ($employeeID === 0) {
     header('Location: index.php');
     exit;
 }
-
-require_once ROOT_PATH . '/classes/Employee.php';
-
-$employee = unserialize($_SESSION['employee']);
-$employeeID = $employee->getId();
 
 require_once ROOT_PATH . '/classes/EmployeeDB.php';
 require_once ROOT_PATH . '/classes/DepartmentDB.php';
 
 $employeeDB = new EmployeeDB();
+$employee = $employeeDB->getById($employeeID);
+
+if (!$employee) {
+    $errorMessage = 'There was an error retrieving employee information.';
+}
+
 $departmentDB = new DepartmentDB();
 $departments = $departmentDB->getAll();
+
+if (!$departments) {
+    $errorMessage = 'There was an error retrieving the list of deparments.';
+}
 
 $initialData = [
     'first_name' => $employee->getFirstName(),
@@ -41,9 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($validationErrors)) {
         if ($employeeDB->update($employeeID, $data)) {
-            unset($_SESSION['employee']);
-            header("Location: view.php?id=$employeeID");
+            header('Location: index.php');
             exit;
+        } else {
+            $errorMessage = 'Failed to update the employee.';
         }
     }
 }
@@ -54,7 +61,7 @@ include_once ROOT_PATH . '/public/header.php';
 ?>
 
 <nav>
-    <a href="view.php?id=<?= $employeeID ?>" title="Back to Employee">Back</a>
+    <a href="index.php ?>" title="Back to Employees">Back</a>
     <br><br>
 </nav>
 

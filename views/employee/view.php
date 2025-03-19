@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once '../../initialise.php';
 
 $employeeID = (int) ($_GET['id'] ?? 0);
@@ -20,8 +18,6 @@ if (!$employee) {
     $errorMessage = 'There was an error retrieving employee information.';
 }
 
-$_SESSION['employee'] = serialize($employee);
-
 $pageTitle = 'View Employee';
 include_once ROOT_PATH . '/public/header.php';
 
@@ -36,13 +32,28 @@ include_once ROOT_PATH . '/public/header.php';
                 <p class="error"><?=$errorMessage ?></p>
             </section>
         <?php else: ?>
-            <p><strong>First name: </strong><?= htmlspecialchars_decode($employee->getFirstName()) ?></p>
-            <p><strong>Last name: </strong><?= htmlspecialchars($employee->getLastName()) ?></p>
-            <p><strong>Email: </strong><?= htmlspecialchars($employee->getEmail()) ?></p>
-            <p><strong>Birth date: </strong><?= htmlspecialchars($employee->getBirthDate()->format(format: 'Y-m-d')) ?></p>
-            <p><strong>Department: </strong><?= htmlspecialchars($employee->getDepartmentName()) ?></p>
-            <a href="edit.php" class="button" title="Edit Employee">Edit</a>
-            <a href="delete.php" class="button" title="Delete Employee">Delete</a>
+            <table>
+                <tr>
+                    <th>First name:</th>
+                    <td><?= htmlspecialchars($employee->getFirstName()) ?></td>
+                </tr>
+                <tr>
+                    <th>Last name:</th>
+                    <td><?= htmlspecialchars($employee->getLastName()) ?></td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td><?= htmlspecialchars($employee->getEmail()) ?></td>
+                </tr>
+                <tr>
+                    <th>Birth date:</th>
+                    <td><?= htmlspecialchars($employee->getBirthDate()->format('Y-m-d')) ?></td>
+                </tr>
+                <tr>
+                    <th>Department:</th>
+                    <td><?= htmlspecialchars($employee->getDepartmentName()) ?></td>
+                </tr>
+            </table>
         <?php endif; ?>
     </main>
 

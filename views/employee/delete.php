@@ -1,17 +1,22 @@
 <?php
-session_start();
 
 require_once '../../initialise.php';
 
-if (!isset($_SESSION['employee'])) {
+$employeeID = (int) ($_GET['id'] ?? 0);
+
+if ($employeeID === 0) {
     header('Location: index.php');
     exit;
 }
 
-require_once ROOT_PATH . '/classes/Employee.php';
+require_once ROOT_PATH . '/classes/EmployeeDB.php';
 
-$employee = unserialize($_SESSION['employee']);
-$employeeID = $employee->getId();
+$employeeDB = new EmployeeDB();
+$employee = $employeeDB->getById($employeeID);
+
+if (!$employee) {
+    $errorMessage = 'There was an error retrieving employee information.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['confirm'])) {
@@ -20,14 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $employeeDB = new EmployeeDB();
             
             if ($employeeDB->delete($employeeID)) {
-                unset($_SESSION['employee']);
                 header('Location: index.php');
                 exit;
             } else {
                 $errorMessage = 'There was an error deleting the employee.';
             }
         } else {
-            header(header: 'Location: view.php?id=' . $employeeID);
+            header('Location: index.php');
             exit;
         }
     }

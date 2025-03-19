@@ -102,7 +102,7 @@ include_once ROOT_PATH . '/public/header.php';
             </select>
         </div>
         <div>
-            <button type="submit">Create new employee</button>
+            <button type="submit">Create</button>
         </div>
     </form>
 </main>
