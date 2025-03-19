@@ -14,7 +14,7 @@ if ($searchText === '') {
     $departments = $departmentDB->search($searchText);
 }
 if (!$departments) {
-  $errorMessage = 'There was an error while retrieving the list of departments.';
+  $errorMessage = 'No results found.';
 }
 
 $pageTitle = 'Departments';

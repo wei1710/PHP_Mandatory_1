@@ -14,7 +14,7 @@ if ($searchText === '') {
     $employees = $employeeDB->search($searchText);
 }
 if (!$employees) {
-    $errorMessage = 'There was an error while retrieving the list of employees.';
+    $errorMessage = 'No results found.';
 }
 
 $pageTitle = 'Employees';
