@@ -1,4 +1,5 @@
 <?php
+
 require_once '../../initialise.php';
 
 require_once ROOT_PATH . '/classes/DepartmentDB.php';
@@ -6,6 +7,7 @@ require_once ROOT_PATH . '/classes/DepartmentDB.php';
 $searchText = trim($_GET['search'] ?? '');
 
 $departmentDB = new DepartmentDB();
+
 if ($searchText === '') {
     $departments = $departmentDB->getAll();
 } else {
@@ -24,7 +26,7 @@ include_once ROOT_PATH . '/public/nav.php';
 <nav>
     <a href="new.php" class="button" title="Add New Department">Add department</a>
     <br><br>
-  </nav>
+</nav>
 
 <main>
     <?php if (isset($errorMessage)): ?>

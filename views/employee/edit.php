@@ -61,24 +61,22 @@ include_once ROOT_PATH . '/public/header.php';
 ?>
 
 <nav>
-    <a href="index.php ?>" title="Back to Employees">Back</a>
+    <a href="index.php" title="Back to Employees">Back</a>
     <br><br>
 </nav>
 
 <main>
     <?php if (isset($errorMessage)): ?>
         <section>
-            <p class="error"><?= htmlspecialchars(string: $errorMessage) ?></p>
+            <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
         </section>
     <?php endif; ?>
 
     <?php if (!empty($validationErrors)): ?>
         <section class="validation-errors">
-            <ul>
-                <?php foreach ($validationErrors as $error): ?>
-                    <li><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
+            <?php foreach ($validationErrors as $error): ?>
+                <p class="error"><?= htmlspecialchars($error) ?></p>
+            <?php endforeach; ?>
         </section>
     <?php endif; ?>
 

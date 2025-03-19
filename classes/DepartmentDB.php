@@ -76,7 +76,7 @@ Class DepartmentDB extends Database implements IDepartmentDB
      * @return <array> An associative array of Department objects,
      *         or false if there was an error
      */
-    function getByID(int $departmentID): array|false
+    function getByID(int $departmentID): Department|false
     {
         $sql =<<<SQL
             SELECT d.nDepartmentID, d.cName,
@@ -93,7 +93,7 @@ Class DepartmentDB extends Database implements IDepartmentDB
             $stmt->execute();
 
             if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return [new Department(id: $row['nDepartmentID'], name: $row['cName'])];
+                return new Department(id: $row['nDepartmentID'], name: $row['cName']);
             }
             return false;
         } catch (PDOException $e) {
