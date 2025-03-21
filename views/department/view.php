@@ -5,8 +5,8 @@ require_once '../../initialise.php';
 $departmentID = (int) ($_GET['id'] ?? 0);
 
 if ($departmentID === 0) {
-    header('Location: index.php');
-    exit;
+  header('Location: index.php');
+  exit;
 }
 
 require_once ROOT_PATH . '/classes/DepartmentDB.php';
@@ -31,14 +31,14 @@ include_once ROOT_PATH . '/public/header.php';
 <main>
   <?php if (isset($errorMessage)): ?>
     <section>
-      <p class="error" <?= htmlspecialchars($errorMessage) ?>></p>
+      <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
     </section>
   <?php else: ?>
     <h2>Department</h2>
     <table>
       <thead>
         <tr>
-          <th>Name:</th>
+          <th>Name</th>
         </tr>
       </thead>
       <tbody>
