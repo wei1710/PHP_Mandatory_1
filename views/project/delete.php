@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Delete project';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
@@ -45,11 +46,11 @@ include_once ROOT_PATH . '/public/header.php';
 </nav>
 
 <main>
+  <h2>Project</h2>
   <?php if (isset($errorMessage)): ?>
     <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
   <?php endif; ?>
 
-  <h2>Project</h2>
   <table>
     <tr>
       <th>Name</th>

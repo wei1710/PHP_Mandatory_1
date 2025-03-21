@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Add Project';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
@@ -36,6 +37,7 @@ include_once ROOT_PATH . '/public/header.php';
 </nav>
 
 <main>
+  <h2>Project</h2>
   <?php if (isset($errorMessage)): ?>
     <section>
       <p class="error"><?= htmlspecialchars($errorMessage); ?></p>
@@ -44,7 +46,7 @@ include_once ROOT_PATH . '/public/header.php';
 
   <?php if (!empty($validationErrors)): ?>
     <section class="validation-errors">
-      <?php foreach($validationErrors as $error): ?>
+      <?php foreach ($validationErrors as $error): ?>
         <p><?= htmlspecialchars($error) ?></p>
       <?php endforeach; ?>
     </section>

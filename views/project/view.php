@@ -21,6 +21,7 @@ if (!$project) {
 
 $pageTitle = 'View Project';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
@@ -29,12 +30,12 @@ include_once ROOT_PATH . '/public/header.php';
 </nav>
 
 <main>
+  <h2>Project</h2>
   <?php if (isset($errorMessage)): ?>
     <section>
       <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
     </section>
   <?php else: ?>
-    <h2>Project</h2>
     <table>
       <thead>
         <tr>

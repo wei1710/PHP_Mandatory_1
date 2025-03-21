@@ -20,7 +20,6 @@ include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 <main>
-
     <form action="index.php" method="GET">
         <div>
             <label for="txtSearch">Search</label>

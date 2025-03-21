@@ -5,7 +5,7 @@ require_once 'Logger.php';
 require_once __DIR__ . '/../interfaces/IEmployeeDB.php';
 require_once 'Employee.php';
 
-Class EmployeeDB extends Database implements IEmployeeDB
+class EmployeeDB extends Database implements IEmployeeDB
 {
 
     /**
@@ -15,7 +15,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
      */
     function getAll(): array|false
     {
-        $sql =<<<SQL
+        $sql = <<<SQL
             SELECT nEmployeeID, cFirstName, cLastName, cEmail, dBirth, nDepartmentID
             FROM employee
             ORDER BY cFirstName, cLastName;
@@ -24,11 +24,11 @@ Class EmployeeDB extends Database implements IEmployeeDB
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-            
+
             $employees = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                
+
                 $birthDate = DateTime::createFromFormat(format: 'Y-m-d', datetime: $row['dBirth']);
                 $employees[] = new Employee(
                     id: $row['nEmployeeID'],
@@ -56,7 +56,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
      */
     function search(string $searchText): array|false
     {
-        $sql =<<<SQL
+        $sql = <<<SQL
             SELECT nEmployeeID, cFirstName, cLastName, cEmail, dBirth, nDepartmentID
             FROM employee
             WHERE cFirstName LIKE :firstName
@@ -69,7 +69,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt->bindValue(':firstName', "%$searchText%");
             $stmt->bindValue(':lastName', "%$searchText%");
             $stmt->execute();
-            
+
             $employees = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -99,7 +99,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
      */
     function getByID(int $employeeID): Employee|false
     {
-        $sql =<<<SQL
+        $sql = <<<SQL
             SELECT
                 e.nEmployeeID AS employee_id,
                 e.cFirstName AS first_name, 
@@ -122,7 +122,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':employeeID', $employeeID);
             $stmt->execute();
-            
+
             if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $birthDate = DateTime::createFromFormat(format: 'Y-m-d', datetime: $row['birth_date']);
                 $employee = new Employee(
@@ -145,6 +145,51 @@ Class EmployeeDB extends Database implements IEmployeeDB
     }
 
     /**
+     * It retrieves available employees from the database 
+     * that are not assigned to the project.
+     * @param int $projectID The ID of the project.
+     * @return <array> An associative array of Employee objects, 
+     *         or an empty array if there was an error.
+     */
+    public function getAvailableEmployees(int $projectID): array
+    {
+        $sql = <<<SQL
+        SELECT e.*
+        FROM employee e
+        WHERE e.nEmployeeID NOT IN (
+            SELECT ep.nEmployeeID
+            FROM emp_proy ep
+            WHERE ep.nProjectID = :projectID
+        )
+        SQL;
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':projectID', $projectID);
+            $stmt->execute();
+
+            $availableEmployees = [];
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $birthDate = DateTime::createFromFormat('Y-m-d', $row['dBirth']);
+                $availableEmployees[] = new Employee(
+                    id: $row['nEmployeeID'],
+                    firstName: $row['cFirstName'],
+                    lastName: $row['cLastName'],
+                    email: $row['cEmail'],
+                    birthDate: $birthDate,
+                    departmentId: $row['nDepartmentID']
+                );
+            }
+
+            return $availableEmployees;
+        } catch (PDOException $e) {
+            Logger::logText('Error getting available employees: ', $e);
+            return [];
+        }
+    }
+
+    /**
      * It validates employee data before putting it into the database
      * @param $employee Employee data in an associative array
      * @return <array> An array with all validation error messages
@@ -156,9 +201,9 @@ Class EmployeeDB extends Database implements IEmployeeDB
         $email = trim($employee['email'] ?? '');
         $birthDate = trim($employee['birth_date'] ?? '');
         $departmentID = (int) ($employee['department_id'] ?? 0);
-        
+
         $validationErrors = [];
-        
+
         if ($firstName === '') {
             $validationErrors[] = 'First name is mandatory.';
         }
@@ -185,7 +230,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
                 $validationErrors[] = 'The department does not exist.';
             }
         }
-        
+
         return $validationErrors;
     }
 
@@ -197,7 +242,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
      */
     function insert(array $employee): bool
     {
-        $sql =<<<SQL
+        $sql = <<<SQL
             INSERT INTO employee
                 (cFirstName, cLastName, cEmail, dBirth, nDepartmentID)
             VALUES
@@ -212,7 +257,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt->bindValue(':birthDate', $employee['birth_date']);
             $stmt->bindValue(':departmentID', $employee['department_id']);
             $stmt->execute();
-            
+
             return $stmt->rowCount() === 1;
         } catch (PDOException $e) {
             Logger::logText('Error inserting a new employee: ', $e);
@@ -220,9 +265,16 @@ Class EmployeeDB extends Database implements IEmployeeDB
         }
     }
 
+    /**
+     * It updates an employee in the database.
+     * @param int $employeeID The ID of the employee.
+     * @param <array> $data An associative array 
+     * with keys 'first_name', 'last_name', 'email', 'birth_date', and 'department_id'.
+     * @return <bool> True if the update was successful, or false if there was an error.
+     */
     public function update(int $employeeID, array $data): bool
     {
-        $sql =<<<SQL
+        $sql = <<<SQL
             UPDATE employee
             SET cFirstName = :firstName,
                 cLastName = :lastName,
@@ -258,7 +310,7 @@ Class EmployeeDB extends Database implements IEmployeeDB
      */
     public function delete(int $employeeID): bool
     {
-        $sql =<<<SQL
+        $sql = <<<SQL
             DELETE FROM employee
             WHERE nEmployeeID = :employeeID;
         SQL;

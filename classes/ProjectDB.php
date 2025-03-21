@@ -16,10 +16,10 @@ class ProjectDB extends Database implements IProjectDB
   public function getAll(): array|false
   {
     $sql = <<<SQL
-          SELECT nProjectID, cName
-          FROM project
-          ORDER BY cName;
-      SQL;
+            SELECT nProjectID, cName
+            FROM project
+            ORDER BY cName;
+          SQL;
 
     try {
       $stmt = $this->pdo->prepare($sql);
@@ -47,11 +47,11 @@ class ProjectDB extends Database implements IProjectDB
   public function search(string $searchText): array|false
   {
     $sql = <<<SQL
-            SELECT nProjectID, cName
-            FROM project
-            WHERE cName LIKE :name
+            SELECT nProjectID, cName 
+            FROM project 
+            WHERE cName LIKE :name 
             ORDER BY cName;
-        SQL;
+          SQL;
 
     try {
       $stmt = $this->pdo->prepare($sql);
@@ -141,9 +141,9 @@ class ProjectDB extends Database implements IProjectDB
   public function insert(string $name): bool
   {
     $sql = <<<SQL
-            INSERT INTO project (cName)
+            INSERT INTO project (cName) 
             VALUES (:name);
-        SQL;
+          SQL;
 
     try {
       $stmt = $this->pdo->prepare($sql);
@@ -160,60 +160,67 @@ class ProjectDB extends Database implements IProjectDB
 
   public function update(int $projectID, ?string $name = null, ?int $newEmployee = null, ?int $oldEmployee = null): bool
   {
-    $sql = 'START TRANSACTION; ';
-    $params = [':projectID' => $projectID];
-    $hasUpdates = false;
-
-    // Update project name
-    if (isset($name)) {
-      $sql .= <<<SQL
-                UPDATE project
-                SET cName = :name
-                WHERE nProjectID = :projectID;
-            SQL;
-      $params[':name'] = $name;
-      $hasUpdates = true;
-    }
-
-    // Remove employee
-    if (isset($oldEmployee)) {
-      $sql .= <<<SQL
-              DELETE FROM emp_proy
-              WHERE nProjectID = :projectID AND nEmployeeID = :$oldEmployee;
-          SQL;
-      $params[':oldEmployee'] = $oldEmployee;
-      $hasUpdates = true;
-    }
-
-    if (isset($newEmployee)) {
-      $sql .= <<<SQL
-              INSERT INTO emp_proy (nProjectID, nEmployeeID)
-              VALUES (:projectID, :newEmployee);
-          SQL;
-      $params[':newEmployee'] = $newEmployee;
-      $hasUpdates = true;
-    }
-
-    $sql .= ' COMMIT;';
-
-    if ($hasUpdates === false) {
-      return true;
-    }
-
     try {
-      $stmt = $this->pdo->prepare($sql);
+      $this->pdo->beginTransaction();
+      $hasUpdates = false;
 
-      foreach ($params as $key => $value) {
-        $stmt->bindValue($key, $value);
+      if ($name !== null) {
+        $sql = <<<SQL
+                UPDATE project 
+                SET cName = :name 
+                WHERE nProjectID = :projectID
+              SQL;
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':projectID', $projectID);
+        $stmt->execute();
+        $hasUpdates = true;
       }
-      $stmt->execute();
+
+      if ($oldEmployee !== null) {
+        $sql = <<<SQL
+                DELETE FROM emp_proy 
+                WHERE nProjectID = :projectID 
+                AND nEmployeeID = :oldEmployee
+              SQL;
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':projectID', $projectID);
+        $stmt->bindValue(':oldEmployee', $oldEmployee);
+        $stmt->execute();
+        $hasUpdates = true;
+      }
+
+      if ($newEmployee !== null) {
+        $sql = <<<SQL
+                INSERT INTO emp_proy (nProjectID, nEmployeeID) 
+                VALUES (:projectID, :newEmployee)
+              SQL;
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':projectID', $projectID);
+        $stmt->bindValue(':newEmployee', $newEmployee);
+        $stmt->execute();
+        $hasUpdates = true;
+      }
+
+      if ($hasUpdates) {
+        $this->pdo->commit();
+      } else {
+        $this->pdo->rollBack();
+      }
+
       return true;
     } catch (PDOException $e) {
-      $this->pdo->rollBack();
+      if ($this->pdo->inTransaction()) {
+        $this->pdo->rollBack();
+      }
       Logger::logText('Error updating project: ', $e);
       return false;
     }
   }
+
 
   /**
    * It delete a project from the database.

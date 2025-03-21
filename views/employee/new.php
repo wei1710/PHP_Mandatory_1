@@ -45,11 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Add Employee';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
+
 ?>
 
 <nav>
     <a href="index.php" title="Back to Employees">Back</a>
-    <br><br>
 </nav>
 
 <main>
@@ -69,6 +70,7 @@ include_once ROOT_PATH . '/public/header.php';
         </section>
     <?php endif; ?>
 
+    <h2>Employee</h2>
     <form action="new.php" method="POST">
         <div>
             <label for="first_name">First name</label>

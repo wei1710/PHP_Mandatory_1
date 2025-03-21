@@ -36,20 +36,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Delete Department';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
 <nav>
   <a href="index.php" title="Back to Departments">Back</a>
-  <br><br>
 </nav>
 
 <main>
+  <h2>Department</h2>
   <?php if (isset($errorMessage)): ?>
     <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
   <?php endif; ?>
 
-  <h2>Department</h2>
   <table>
     <tr>
       <th>Name</th>

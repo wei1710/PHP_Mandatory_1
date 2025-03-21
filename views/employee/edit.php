@@ -57,12 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Edit Employee';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
 <nav>
     <a href="index.php" title="Back to Employees">Back</a>
-    <br><br>
 </nav>
 
 <main>
@@ -80,25 +80,26 @@ include_once ROOT_PATH . '/public/header.php';
         </section>
     <?php endif; ?>
 
+    <h2>Employee</h2>
     <form method="POST">
         <div>
-            <label for="first_name">First Name:</label>
+            <label for="first_name">First Name</label>
             <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($employee->getFirstName()) ?>" required>
         </div>
         <div>
-            <label for="last_name">Last Name:</label>
+            <label for="last_name">Last Name</label>
             <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($employee->getLastName()) ?>" required>
         </div>
         <div>
-            <label for="email">Email:</label>
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" value="<?= htmlspecialchars($employee->getEmail()) ?>" required>
         </div>
         <div>
-            <label for="birth_date">Birth Date:</label>
+            <label for="birth_date">Birth Date</label>
             <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($employee->getBirthDate()->format('Y-m-d')) ?>" required>
         </div>
         <div>
-            <label for="department_id">Department:</label>
+            <label for="department_id">Department</label>
             <select id="department_id" name="department_id" required>
                 <option value="">Select a department</option>
                 <?php foreach ($departments as $department): ?>

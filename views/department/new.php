@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Add Department';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
@@ -36,6 +37,7 @@ include_once ROOT_PATH . '/public/header.php';
 </nav>
 
 <main>
+  <h2>Department</h2>
   <?php if (isset($errorMessage)): ?>
     <section>
       <p class="error"><?= htmlspecialchars($errorMessage); ?></p>

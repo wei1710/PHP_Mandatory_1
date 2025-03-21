@@ -1,6 +1,6 @@
 Options -Indexes
 
-<FilesMatch "^(classes|interfaces|css|data|log|views)">
+<FilesMatch "^(classes|interfaces|css|data|log|views|img)">
     Deny from all
 </FilesMatch>
 

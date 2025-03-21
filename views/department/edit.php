@@ -21,42 +21,43 @@ if (!$department) {
 $initialData = $department->getName();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = trim($_POST['name'] ?? '');
+  $data = trim($_POST['name'] ?? '');
 
-    if ($data === '') {
-      $errorMessage = 'Name is mandatory.';
-    } elseif ($departmentDB->update($departmentID, $data)) {
-        header('Location: index.php');
-        exit;
-    } else {
-      $errorMessage = 'Failed to update the department.';
-    }
+  if ($data === '') {
+    $errorMessage = 'Name is mandatory.';
+  } elseif ($departmentDB->update($departmentID, $data)) {
+    header('Location: index.php');
+    exit;
+  } else {
+    $errorMessage = 'Failed to update the department.';
+  }
 }
 
 $pageTitle = 'Edit Department';
 include_once ROOT_PATH . '/public/header.php';
+include_once ROOT_PATH . '/public/nav.php';
 
 ?>
 
 <nav>
-    <a href="index.php" title="Back to Departments">Back</a>
-    <br><br>
+  <a href="index.php" title="Back to Departments">Back</a>
 </nav>
 
 <main>
-    <?php if (isset($errorMessage)): ?>
-       <section>
-          <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
-       </section>
-    <?php endif; ?>
+  <h2>Department</h2>
+  <?php if (isset($errorMessage)): ?>
+    <section>
+      <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
+    </section>
+  <?php endif; ?>
 
-    <form method="POST">
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($department->getName()) ?>" required>
-        </div>
-        <button type="submit">Update</button>
-    </form>
+  <form method="POST">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" value="<?= htmlspecialchars($department->getName()) ?>" required>
+    </div>
+    <button type="submit">Update</button>
+  </form>
 </main>
 
 <?php include_once ROOT_PATH . '/public/footer.php'; ?>
