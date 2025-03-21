@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['confirm'])) {
     if ($_POST['confirm'] === 'yes') {
       if ($departmentDB->delete($departmentID)) {
-          header('Location: index.php');
-          exit;
+        header('Location: index.php');
+        exit;
       } else {
         $errorMessage = 'There was an error deleting the department.';
       }
@@ -72,7 +72,7 @@ include_once ROOT_PATH . '/public/header.php';
         </tr>
       </thead>
       <tbody>
-        <?php foreach($employees as $employee): ?>
+        <?php foreach ($employees as $employee): ?>
           <tr>
             <td><?= htmlspecialchars($employee->getLastName()) ?></td>
             <td><?= htmlspecialchars($employee->getFirstName()) ?></td>
@@ -80,13 +80,13 @@ include_once ROOT_PATH . '/public/header.php';
         <?php endforeach; ?>
       </tbody>
     </table>
-    <?php endif; ?>
+  <?php endif; ?>
 
-    <?php if (!empty($employees)): ?>
-      <p class="warning">This department cannot be deleted because it has employees.</p>
-    <?php endif; ?>
+  <?php if (!empty($employees)): ?>
+    <p class="warning">This department cannot be deleted because it has employees.</p>
+  <?php endif; ?>
 
-    <?php if (empty($employees)): ?>
+  <?php if (empty($employees)): ?>
     <h3>Are you sure you want to delete this department?</h3>
     <form method="POST">
       <button type="submit" name="confirm" value="yes">Yes</button>

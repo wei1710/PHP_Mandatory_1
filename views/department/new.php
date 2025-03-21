@@ -45,7 +45,7 @@ include_once ROOT_PATH . '/public/header.php';
   <?php if (!empty($validationErrors)): ?>
     <section class="validation-errors">
       <?php foreach ($validationErrors as $error): ?>
-          <p><?= htmlspecialchars($error) ?></p>
+        <p><?= htmlspecialchars($error) ?></p>
       <?php endforeach; ?>
     </section>
   <?php endif; ?>
@@ -54,7 +54,7 @@ include_once ROOT_PATH . '/public/header.php';
     <div>
       <label for="name">Name</label>
       <input type="text" id="name" name="name"
-             value="<?= htmlspecialchars($departmentName ?? '') ?>" required>
+        value="<?= htmlspecialchars($departmentName ?? '') ?>" required>
     </div>
     <div>
       <button type="submit">Create</button>

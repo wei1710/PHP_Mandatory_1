@@ -1,86 +1,126 @@
 <?php
 
-Class Employee 
+class Employee
 {
-    private int $id;
-    private string $firstName;
-    private string $lastName;
-    private string $email;
-    private DateTime $birthDate;
-    private ?int $departmentId;
-    private ?string $departmentName;
+  private int $id;
+  private string $firstName;
+  private string $lastName;
+  private string $email;
+  private DateTime $birthDate;
+  private ?int $departmentId;
+  private ?string $departmentName;
+  private ?int $projectId;
+  private ?string $projectName;
 
-    public function __construct(
-      int $id,
-      string $firstName,
-      string $lastName,
-      string $email,
-      DateTime $birthDate,
-      ?int $departmentId,
-      ?string $departmentName = null,
-    ) {
-      $this->id = $id;
-      $this->firstName = $firstName;
-      $this->lastName = $lastName;
-      $this->email = $email;
-      $this->birthDate = $birthDate;
-      $this->departmentId = $departmentId;
-      $this->departmentName = $departmentName;
-    }
+  public function __construct(
+    int $id,
+    string $firstName,
+    string $lastName,
+    string $email,
+    DateTime $birthDate,
+    ?int $departmentId,
+    ?string $departmentName = null,
+    ?int $projectId,
+    ?string $projectName = null
+  ) {
+    $this->id = $id;
+    $this->firstName = $firstName;
+    $this->lastName = $lastName;
+    $this->email = $email;
+    $this->birthDate = $birthDate;
+    $this->departmentId = $departmentId;
+    $this->departmentName = $departmentName;
+    $this->projectId = $projectId;
+    $this->projectName = $projectName;
+  }
 
-    public function setId(int $id): void {
-      $this->id = $id;
-    }
+  public function setId(int $id): void
+  {
+    $this->id = $id;
+  }
 
-    public function setFirstName(string $firstName): void {
-      $this->firstName = $firstName;
-    }
+  public function setFirstName(string $firstName): void
+  {
+    $this->firstName = $firstName;
+  }
 
-    public function setLastName(string $lastName): void {
-      $this->lastName = $lastName;
-    }
+  public function setLastName(string $lastName): void
+  {
+    $this->lastName = $lastName;
+  }
 
-    public function setEmail(string $email): void {
-      $this->email = $email;
-    }
+  public function setEmail(string $email): void
+  {
+    $this->email = $email;
+  }
 
-    public function setBirthDate(DateTime $birthDate): void {
-      $this->birthDate = $birthDate;
-    }
+  public function setBirthDate(DateTime $birthDate): void
+  {
+    $this->birthDate = $birthDate;
+  }
 
-    public function setDepartmentId(?int $departmentId): void {
-      $this->departmentId = $departmentId;
-    }
+  public function setDepartmentId(?int $departmentId): void
+  {
+    $this->departmentId = $departmentId;
+  }
 
-    public function setDepartmentName(?string $departmentName): void {
-      $this->departmentName = $departmentName;
-    }
+  public function setDepartmentName(?string $departmentName): void
+  {
+    $this->departmentName = $departmentName;
+  }
 
-    public function getId(): int {
-      return $this->id;
-    }
+  function setProjectId(?int $projectId): void
+  {
+    $this->projectId = $projectId;
+  }
 
-    public function getFirstName(): string {
-      return $this->firstName;
-    }
+  function setProjectName(?string $projectName): void
+  {
+    $this->projectName = $projectName;
+  }
 
-    public function getLastName(): string {
-      return $this->lastName;
-    }
+  public function getId(): int
+  {
+    return $this->id;
+  }
 
-    public function getEmail(): string {
-      return $this->email;
-    }
+  public function getFirstName(): string
+  {
+    return $this->firstName;
+  }
 
-    public function getBirthDate(): DateTime {
-      return $this->birthDate;
-    }
+  public function getLastName(): string
+  {
+    return $this->lastName;
+  }
 
-    public function getDepartmentId(): ?int {
-      return $this->departmentId;
-    }
+  public function getEmail(): string
+  {
+    return $this->email;
+  }
 
-    public function getDepartmentName(): ?string {
-      return $this->departmentName;
-    }
+  public function getBirthDate(): DateTime
+  {
+    return $this->birthDate;
+  }
+
+  public function getDepartmentId(): ?int
+  {
+    return $this->departmentId;
+  }
+
+  public function getDepartmentName(): ?string
+  {
+    return $this->departmentName;
+  }
+
+  public function getProjectId(): ?int
+  {
+    return $this->projectId;
+  }
+
+  public function getProjectName(): ?string
+  {
+    return $this->projectName;
+  }
 }
