@@ -100,13 +100,10 @@ class DepartmentDB extends Database implements IDepartmentDB
       $stmt->execute();
 
       $employees = [];
-      $departmentName = null;
-      $departmentId = null;
-      $projectId = null;
 
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $departmentName = $row['cName'];
         $departmentId = $row['nDepartmentID'];
+        $departmentName = $row['cName'];
 
         if ($row['nEmployeeID'] !== null) {
           $birthDate = DateTime::createFromFormat('Y-m-d', $row['dBirth']);
@@ -117,9 +114,7 @@ class DepartmentDB extends Database implements IDepartmentDB
             email: $row['cEmail'],
             birthDate: $birthDate,
             departmentId: $departmentId,
-            departmentName: null,
-            projectId: $projectId,
-            projectName: null
+            departmentName: $departmentName
           );
         }
       }

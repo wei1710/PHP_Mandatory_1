@@ -99,12 +99,10 @@ class ProjectDB extends Database implements IProjectDB
       $stmt->execute();
 
       $employees = [];
-      $projectName = null;
-      $projectId = null;
 
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $projectName = $row['cName'];
         $projectId = $row['nProjectID'];
+        $projectName = $row['cName'];
 
         if ($row['nEmployeeID'] !== null) {
           $birthDate = DateTime::createFromFormat('Y-m-d', $row['dBirth']);
@@ -114,8 +112,6 @@ class ProjectDB extends Database implements IProjectDB
             lastName: $row['cLastName'],
             email: $row['cEmail'],
             birthDate: $birthDate,
-            departmentId: null,
-            departmentName: null,
             projectId: $projectId,
             projectName: $projectName
           );

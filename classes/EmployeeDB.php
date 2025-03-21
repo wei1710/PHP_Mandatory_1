@@ -26,7 +26,6 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt->execute();
             
             $employees = [];
-            $projectId = null;
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 
@@ -38,8 +37,6 @@ Class EmployeeDB extends Database implements IEmployeeDB
                     email: $row['cEmail'],
                     birthDate: $birthDate,
                     departmentId: $row['nDepartmentID'],
-                    departmentName: null,
-                    projectId: $projectId,
                 );
             }
             return $employees;
@@ -74,7 +71,6 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt->execute();
             
             $employees = [];
-            $projectId = null;
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $birthDate = DateTime::createFromFormat(format: 'Y-m-d', datetime: $row['dBirth']);
@@ -85,8 +81,6 @@ Class EmployeeDB extends Database implements IEmployeeDB
                     email: $row['cEmail'],
                     birthDate: $birthDate,
                     departmentId: $row['nDepartmentID'],
-                    departmentName: null,
-                    projectId: $projectId,
                 );
             }
             return $employees;
@@ -128,8 +122,6 @@ Class EmployeeDB extends Database implements IEmployeeDB
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':employeeID', $employeeID);
             $stmt->execute();
-
-            $projectId = null;
             
             if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $birthDate = DateTime::createFromFormat(format: 'Y-m-d', datetime: $row['birth_date']);
@@ -141,7 +133,6 @@ Class EmployeeDB extends Database implements IEmployeeDB
                     birthDate: $birthDate,
                     departmentId: $row['department_id'],
                     departmentName: $row['department_name'],
-                    projectId: null
                 );
                 return $employee;
             }

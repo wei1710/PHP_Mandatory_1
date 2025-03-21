@@ -18,9 +18,9 @@ class Employee
     string $lastName,
     string $email,
     DateTime $birthDate,
-    ?int $departmentId,
+    ?int $departmentId = null,
     ?string $departmentName = null,
-    ?int $projectId,
+    ?int $projectId = null,
     ?string $projectName = null
   ) {
     $this->id = $id;
