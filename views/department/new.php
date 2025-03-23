@@ -33,7 +33,6 @@ include_once ROOT_PATH . '/public/nav.php';
 
 <nav>
   <a href="index.php" title="Back to Departments">Back</a>
-  <br><br>
 </nav>
 
 <main>

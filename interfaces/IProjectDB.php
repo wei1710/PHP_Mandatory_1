@@ -1,6 +1,7 @@
 <?php
 
-Interface IProjectDB {
+interface IProjectDB
+{
   public function getAll(): array|false;
   public function search(string $searchText): array|false;
   public function getById(int $projectID): Project|false;

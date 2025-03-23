@@ -1,6 +1,7 @@
 <?php
 
-Interface IDepartmentDB {
+interface IDepartmentDB
+{
   public function getAll(): array|false;
   public function search(string $searchText): array|false;
   public function getById(int $departmentID): Department|false;

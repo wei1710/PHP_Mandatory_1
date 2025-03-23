@@ -1,9 +1,9 @@
 <?php
 
-Class DBCredentials
+class DBCredentials
 {
-    protected string $host = 'localhost';
-    protected string $dbname = 'company';
-    protected string $user = 'root';
-    protected string $password = '';
+  protected string $host = 'localhost';
+  protected string $dbname = 'company';
+  protected string $user = 'root';
+  protected string $password = '';
 }

@@ -1,14 +1,14 @@
 <?php
 
 /**
-* Creates two constants for the application:
-*
-* - ROOT_PATH: The file system path to the application
-*   (e.g., "C:/xampp/htdocs/php_company_employees", "var/www/html/php_company_employees")
-* 
-* - BASE_URL: The web URL path to the application
-*   (e.g., "php_company_employees")
-*/
+ * Creates two constants for the application:
+ *
+ * - ROOT_PATH: The file system path to the application
+ *   (e.g., "C:/xampp/htdocs/php_company_employees", "var/www/html/php_company_employees")
+ * 
+ * - BASE_URL: The web URL path to the application
+ *   (e.g., "php_company_employees")
+ */
 
 // Fix Windows backslashes (double backslash needed as escape character)
 define('ROOT_PATH', str_replace('\\', '/', __DIR__));

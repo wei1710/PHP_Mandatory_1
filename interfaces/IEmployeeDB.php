@@ -1,6 +1,7 @@
 <?php
 
-Interface IEmployeeDB {
+interface IEmployeeDB
+{
   public function getAll(): array|false;
   public function search(string $searchText): array|false;
   public function getByID(int $employeeID): Employee|false;
