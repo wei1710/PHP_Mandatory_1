@@ -84,7 +84,6 @@ include_once ROOT_PATH . '/public/nav.php';
 </nav>
 
 <main>
-  <h2>Project</h2>
   <?php if (isset($errorMessage)): ?>
     <p class="error"><?= htmlspecialchars($errorMessage) ?></p>
   <?php endif; ?>
