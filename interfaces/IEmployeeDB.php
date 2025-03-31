@@ -8,4 +8,6 @@ Interface IEmployeeDB
   public function getAvailableEmployees(int $projectID): array;
   public function validate(array $employee): array;
   public function insert(array $employee): bool;
+  public function update(int $employeeID, array $data): bool;
+  public function delete(int $employeeID): bool;
 }
