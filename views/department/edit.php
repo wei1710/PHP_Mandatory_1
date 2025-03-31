@@ -18,8 +18,6 @@ if (!$department) {
   $errorMessage = 'There was an error retrieving department information.';
 }
 
-$initialData = $department->getName();
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = trim($_POST['name'] ?? '');
 

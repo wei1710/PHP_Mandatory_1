@@ -26,14 +26,6 @@ if (!$departments) {
   $errorMessage = 'There was an error retrieving the list of deparments.';
 }
 
-$initialData = [
-  'first_name' => $employee->getFirstName(),
-  'last_name' => $employee->getLastName(),
-  'email' => $employee->getEmail(),
-  'birth_date' => $employee->getBirthDate()->format('Y-m-d'),
-  'department_id' => $employee->getDepartmentId(),
-];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = [
     'first_name' => $_POST['first_name'] ?? '',
