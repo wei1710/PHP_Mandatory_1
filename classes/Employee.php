@@ -1,6 +1,6 @@
 <?php
 
-class Employee
+Class Employee
 {
   private int $id;
   private string $firstName;

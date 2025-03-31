@@ -5,7 +5,7 @@ require_once 'Logger.php';
 require_once __DIR__ . '/../interfaces/IEmployeeDB.php';
 require_once 'Employee.php';
 
-class EmployeeDB extends Database implements IEmployeeDB
+Class EmployeeDB extends Database implements IEmployeeDB
 {
 
   /**
@@ -13,7 +13,7 @@ class EmployeeDB extends Database implements IEmployeeDB
    * @return <array> An associative array of Employee objects,
    *         or false if there was an error
    */
-  function getAll(): array|false
+  public function getAll(): array|false
   {
     $sql = <<<SQL
             SELECT nEmployeeID, cFirstName, cLastName, cEmail, dBirth, nDepartmentID
@@ -54,7 +54,7 @@ class EmployeeDB extends Database implements IEmployeeDB
    * @return <array> An associative array of Employee objects,
    *         or false if there was an error
    */
-  function search(string $searchText): array|false
+  public function search(string $searchText): array|false
   {
     $sql = <<<SQL
             SELECT nEmployeeID, cFirstName, cLastName, cEmail, dBirth, nDepartmentID
@@ -97,7 +97,7 @@ class EmployeeDB extends Database implements IEmployeeDB
    * @return <array> An associative array of Employee objects,
    *         or false if there was an error
    */
-  function getByID(int $employeeID): Employee|false
+  public function getByID(int $employeeID): Employee|false
   {
     $sql = <<<SQL
             SELECT
@@ -194,7 +194,7 @@ class EmployeeDB extends Database implements IEmployeeDB
    * @param $employee Employee data in an associative array
    * @return <array> An array with all validation error messages
    */
-  function validate(array $employee): array
+  public function validate(array $employee): array
   {
     $firstName = trim($employee['first_name'] ?? '');
     $lastName = trim($employee['last_name'] ?? '');
@@ -240,7 +240,7 @@ class EmployeeDB extends Database implements IEmployeeDB
    * @return true if the insert was successful,
    *         or false if there was an error
    */
-  function insert(array $employee): bool
+  public function insert(array $employee): bool
   {
     $sql = <<<SQL
             INSERT INTO employee

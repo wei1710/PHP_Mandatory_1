@@ -1,6 +1,6 @@
 <?php
 
-class Project
+Class Project
 {
   private int $id;
   private string $name;

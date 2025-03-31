@@ -1,6 +1,6 @@
 <?php
 
-class Department
+Class Department
 {
   private int $id;
   private string $name;

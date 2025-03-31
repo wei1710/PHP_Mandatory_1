@@ -5,7 +5,7 @@
  * @param $info An undefined series of strings or arrays to log
  */
 
-class Logger
+Class Logger
 {
   private const LOG_DIRECTORY = __DIR__ . '/../log';
 

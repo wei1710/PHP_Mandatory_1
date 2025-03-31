@@ -1,6 +1,6 @@
 <?php
 
-interface IDepartmentDB
+Interface IDepartmentDB
 {
   public function getAll(): array|false;
   public function search(string $searchText): array|false;

@@ -2,7 +2,7 @@
 
 require_once 'DBCredentials.php';
 
-class Database extends DBCredentials
+Class Database extends DBCredentials
 {
   protected ?PDO $pdo;
 

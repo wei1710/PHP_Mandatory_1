@@ -6,7 +6,7 @@ require_once ROOT_PATH . '/interfaces/IProjectDB.php';
 require_once 'Project.php';
 require_once 'Employee.php';
 
-class ProjectDB extends Database implements IProjectDB
+Class ProjectDB extends Database implements IProjectDB
 {
   /**
    * It retrieves all project from the database

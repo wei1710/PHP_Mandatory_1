@@ -6,14 +6,14 @@ require_once ROOT_PATH . '/interfaces/IDepartmentDB.php';
 require_once 'Department.php';
 require_once 'Employee.php';
 
-class DepartmentDB extends Database implements IDepartmentDB
+Class DepartmentDB extends Database implements IDepartmentDB
 {
   /**
    * It retrieves all department from the database
    * @return <array> An associative array of Department objects,
    *         or false if there was an error
    */
-  function getAll(): array|false
+  public function getAll(): array|false
   {
     $sql = <<<SQL
             SELECT nDepartmentID, cName
@@ -77,7 +77,7 @@ class DepartmentDB extends Database implements IDepartmentDB
    * @return <array> An associative array of Department objects,
    *         or false if there was an error
    */
-  function getById(int $departmentID): Department|false
+  public function getById(int $departmentID): Department|false
   {
     $sql = <<<SQL
             SELECT 

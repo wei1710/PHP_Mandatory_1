@@ -1,6 +1,6 @@
 <?php
 
-interface IEmployeeDB
+Interface IEmployeeDB
 {
   public function getAll(): array|false;
   public function search(string $searchText): array|false;

@@ -1,6 +1,6 @@
 <?php
 
-interface IProjectDB
+Interface IProjectDB
 {
   public function getAll(): array|false;
   public function search(string $searchText): array|false;
